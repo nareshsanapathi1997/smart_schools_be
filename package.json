@@ -1,0 +1,47 @@
+{
+  "name": "smart-school-backend",
+  "version": "1.0.0",
+  "description": "Smart School API - Express + PostgreSQL + AI",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/utils/seed.js",
+    "seed:demo": "node src/utils/seedDemo.js",
+    "seed:demo:force": "node src/utils/seedDemo.js --force",
+    "update-images": "node src/utils/updateImages.js",
+    "setup-db": "node src/utils/setupDb.js",
+    "migrate:achievements": "node src/utils/migrateAchievements.js",
+    "migrate:courses": "node src/utils/migrateCourses.js",
+    "migrate:events": "node src/utils/migrateEvents.js",
+    "migrate:leads": "node src/utils/migrateLeads.js",
+    "migrate:lookups": "node src/utils/migrateLookups.js",
+    "migrate:students": "node src/utils/migrateStudents.js",
+    "migrate:erp": "node src/utils/migrateErp.js",
+    "migrate:erp-advanced": "node src/utils/migrateErpAdvanced.js",
+    "migrate:erp-phase": "node src/utils/migrateErpPhase.js",
+    "migrate:all": "node src/utils/migrateAll.js",
+    "test": "node --test src/__tests__/*.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "express-validator": "^7.2.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.15",
+    "openai": "^4.67.0",
+    "pg": "^8.13.0",
+    "uuid": "^10.0.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
