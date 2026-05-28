@@ -1,12 +1,25 @@
 const { Pool } = require('pg');
 const config = require('./index');
 
+const connectionString = config.db.connectionString;
+const sslModeEnabled = /(?:^|[?&])sslmode\s*=\s*(require|verify-ca|verify-full)\b/i.test(connectionString || process.env.PGSSLMODE || '');
+
 const pool = new Pool({
-  connectionString: config.db.connectionString,
+  host: config.db.host,
+  port: config.db.port,
+  user: config.db.user,
+  password: config.db.password,
+  database: config.db.database,
   max: parseInt(process.env.DB_POOL_MAX || '20', 10),
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 5_000,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: sslModeEnabled || process.env.NODE_ENV === 'production'
+    ? {
+      rejectUnauthorized: false,
+      checkServerIdentity: () => undefined,
+      servername: config.db.tlsServername,
+    }
+    : false,
 });
 
 pool.on('error', (err) => {

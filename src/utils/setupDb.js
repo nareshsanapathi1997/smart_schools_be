@@ -13,7 +13,14 @@ const adminUrl = `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/p
 const appUrl = `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
 async function setup() {
-  const admin = new Client({ connectionString: adminUrl });
+  const tlsServername = process.env.DB_TLS_HOST || DB_HOST;
+  const sslOptions = {
+    rejectUnauthorized: false,
+    checkServerIdentity: () => undefined,
+    servername: tlsServername,
+  };
+
+  const admin = new Client({ connectionString: adminUrl, ssl: sslOptions });
 
   try {
     await admin.connect();
@@ -30,7 +37,7 @@ async function setup() {
     await admin.end();
   }
 
-  const app = new Client({ connectionString: appUrl });
+  const app = new Client({ connectionString: appUrl, ssl: sslOptions });
   try {
     await app.connect();
     console.log(`Connected to "${DB_NAME}"`);

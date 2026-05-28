@@ -10,6 +10,12 @@ module.exports = {
   },
   db: {
     connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/smart_school',
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT || '5432', 10),
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    database: process.env.DB_NAME || 'smart_school',
+    tlsServername: process.env.DB_TLS_HOST || process.env.DB_HOST || 'localhost',
   },
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
